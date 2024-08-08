@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
+import Header from './ui/Header';
 
 const Calendar: React.FC = () => {
   const [month, setMonth] = useState<number>(new Date().getMonth());
@@ -10,20 +11,7 @@ const Calendar: React.FC = () => {
   firstDayOfMonth = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1; // Ajusta el primer día del mes para que el lunes sea el primer día de la semana
 
   const daysOfWeek: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-  const nameOfMonth: string[] = [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembre',
-  ];
+  
   const days: number[] = [];
   for (let i = 1; i <= daysInMonth; i++) {
     days.push(i);
@@ -41,24 +29,7 @@ const Calendar: React.FC = () => {
     <div className="shadow-xl card lg:card-side bg-base-100">
       <div className="card-body">
         <h2 className="card-title">Dashboard</h2>
-        <div>
-          <label>
-            Mes:
-            {/* <input type="select" value={nameOfMonth[month]} onChange={handleMonthChange} /> */}
-            <select
-              value={month} // ...force the select's value to match the state variable...
-              onChange={handleMonthChange} // ... and update the state variable on any change!
-            >
-              {nameOfMonth.map((month: string, index: number) => (
-                <option key={index} value={index}>{month}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Año:
-            <input type="number" value={year} min="1" onChange={handleYearChange} />
-          </label>
-        </div>
+        <Header handleMonthChange={handleMonthChange} handleYearChange={handleYearChange} month={month} year={year} />
         <div className="grid grid-cols-7 gap-1">
           {daysOfWeek.map((dayOfWeek: string, index: number) => (
             <div key={index} className="flex items-center justify-center">
